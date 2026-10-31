@@ -55,6 +55,22 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/services"
+                  className="text-neutral-400 hover:text-white transition-colors"
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/digital-marketing"
+                  className="text-neutral-400 hover:text-white transition-colors"
+                >
+                  Digital Marketing & CRM
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/contact"
                   className="text-neutral-400 hover:text-white transition-colors"
                 >

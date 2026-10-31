@@ -14,7 +14,7 @@ interface PageProps {
 
 export default async function ClientPage({ params }: PageProps) {
   const { id } = await params;
-  const allClients = [...clients, ...digitalClients];
+  const allClients = [...clients, ...digitalClients, ...technicalClients];
   const client = allClients.find((c) => c.id === id);
 
   if (!client) {
@@ -79,12 +79,12 @@ export default async function ClientPage({ params }: PageProps) {
                   {client.description}
                 </p>
 
-                {technicalClients.some(c => c.id === client.id) && (
+                {technicalClients.some(c => c.id === client.id) && client.partnershipImage && (
                   <div className="mt-10">
                     <h3 className="text-xl font-bold text-slate-900 mb-4">Technical Partnership</h3>
                     <div className="relative w-full aspect-[4/3] sm:aspect-video rounded-3xl overflow-hidden border-4 border-white shadow-lg bg-slate-100">
                       <Image 
-                        src={client.id === "quick-property-services" ? "/assets/ramu.jpg" : "/assets/ceokarthik.png"} 
+                        src={client.partnershipImage} 
                         alt="Technical Partnership Agreement" 
                         fill
                         className="object-cover"

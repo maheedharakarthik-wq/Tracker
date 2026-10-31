@@ -7,6 +7,7 @@ export interface Client {
     softwareProvided?: string[];
     servicesProvided?: string[];
     websiteUrl?: string;
+    partnershipImage?: string;
 }
 
 export const clients: Client[] = [
@@ -128,7 +129,8 @@ export const clients: Client[] = [
             "Responsive Web & Mobile Application",
             "Admin Management Dashboard"
         ],
-        websiteUrl: "https://quickpropertyservices.in/"
+        websiteUrl: "https://quickpropertyservices.in/",
+        partnershipImage: "/assets/ramu.jpg"
     },
     {
         id: "aquapuerto-ro-purifiers",
@@ -177,6 +179,28 @@ export const clients: Client[] = [
             "Responsive Online Storefront"
         ],
         websiteUrl: "https://vayyarii.in/"
+    },
+    {
+        id: "nexlytiq-technologies",
+        name: "NexlytiQ Technologies",
+        logo: "/assets/nexlytiq.jpg",
+        industry: "EdTech & IT Training",
+        description: "NexlytiQ Technologies is an innovative online IT and Data Engineering training institute offering comprehensive programs in Python, Data Engineering, SQL, Power BI, AWS, Azure, and Generative AI. We serve as their dedicated technical partner, designing and building scalable web platforms, student onboarding systems, and digital learning infrastructure.",
+        softwareProvided: [
+            "Online Training & Learning Platform",
+            "Course Enrollment & Management Portal",
+            "Student Inquiry & Lead CRM",
+            "Responsive Next.js Web Application",
+            "Performance & Learning Analytics"
+        ],
+        servicesProvided: [
+            "Comprehensive Digital Marketing Strategy",
+            "Student Acquisition & Lead Generation",
+            "Social Media Marketing & Brand Promotion",
+            "Meta & Google Ads Campaign Management",
+            "Search Engine Optimization (SEO)"
+        ],
+        websiteUrl: "https://nexlytiqtechnologies.com"
     }
 ];
 
@@ -277,6 +301,46 @@ export const digitalClients: Client[] = [
             "Lead Generation Campaigns"
         ],
         websiteUrl: "https://primeconstructions.com/"
+    },
+    {
+        id: "nexlytiq-technologies",
+        name: "NexlytiQ Technologies",
+        logo: "/assets/nexlytiq.jpg",
+        industry: "EdTech & IT Training",
+        description: "NexlytiQ Technologies is a premier online training institute empowering learners worldwide in Data Engineering, Cloud, and Generative AI. VMK Edgemind Solutions partnered with NexlytiQ Technologies to elevate their digital reach, run high-converting student acquisition campaigns, and solidify their presence across digital channels.",
+        softwareProvided: [
+            "Online Training & Learning Platform",
+            "Course Enrollment & Management Portal",
+            "Student Inquiry & Lead CRM",
+            "Responsive Next.js Web Application",
+            "Performance & Learning Analytics"
+        ],
+        servicesProvided: [
+            "Comprehensive Digital Marketing Strategy",
+            "Student Acquisition & Lead Generation Campaigns",
+            "Meta & Google Ads Campaign Management",
+            "Social Media Marketing & Brand Promotion",
+            "Creative Campaign Design & Video Promotion",
+            "Search Engine Optimization (SEO)",
+            "Conversion Rate Optimization & Analytics"
+        ],
+        websiteUrl: "https://nexlytiqtechnologies.com"
+    },
+    {
+        id: "medha-digital-telugu-news",
+        name: "Medha Digital Telugu News",
+        logo: "/assets/medha-news.jpg",
+        industry: "Media & Digital Journalism",
+        description: "Medha Digital Telugu News is a dynamic digital media network delivering breaking regional news, political coverage, cultural analysis, and investigative journalism across Andhra Pradesh and Telangana. VMK Edgemind Solutions partnered with Medha Digital to scale their digital presence, run viral multimedia audience engagement campaigns, and amplify their reach across social channels.",
+        servicesProvided: [
+            "Digital Media Growth Strategy",
+            "Social Media Management & Channel Growth",
+            "Breaking News Poster & Reel Video Production",
+            "YouTube & Facebook Audience Optimization",
+            "Brand Promotion & Awareness Campaigns",
+            "Creative Graphic Content & Infographics",
+            "Audience Engagement & Retention Analytics"
+        ]
     }
 ];
 
@@ -296,6 +360,29 @@ export const technicalClients: Client[] = [
             "Responsive Web & Mobile Application",
             "Admin Management Dashboard"
         ],
-        websiteUrl: "https://quickpropertyservices.in/"
+        websiteUrl: "https://quickpropertyservices.in/",
+        partnershipImage: "/assets/ramu.jpg"
+    },
+    {
+        id: "nexlytiq-technologies",
+        name: "NexlytiQ Technologies",
+        logo: "/assets/nexlytiq.jpg",
+        industry: "EdTech & IT Training",
+        description: "NexlytiQ Technologies is an innovative online IT and Data Engineering training institute offering comprehensive programs in Python, Data Engineering, SQL, Power BI, AWS, Azure, and Generative AI. We serve as their dedicated technical partner, designing and building scalable web platforms, student onboarding systems, and digital learning infrastructure.",
+        softwareProvided: [
+            "Online Training & Learning Platform",
+            "Course Enrollment & Management Portal",
+            "Student Inquiry & Lead CRM",
+            "Responsive Next.js Web Application",
+            "Performance & Learning Analytics"
+        ],
+        servicesProvided: [
+            "Comprehensive Digital Marketing Strategy",
+            "Student Acquisition & Lead Generation",
+            "Social Media Marketing & Brand Promotion",
+            "Meta & Google Ads Campaign Management",
+            "Search Engine Optimization (SEO)"
+        ],
+        websiteUrl: "https://nexlytiqtechnologies.com"
     }
 ];

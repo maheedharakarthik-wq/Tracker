@@ -46,6 +46,8 @@
   --radius-xl: calc(var(--radius) + 4px);
   --color-brand: #00089f;
   --color-brand-foreground: #ffffff;
+  --color-brand-purple: #673DE6;
+  --color-brand-purple-hover: #5832c9;
 }
 
 :root {

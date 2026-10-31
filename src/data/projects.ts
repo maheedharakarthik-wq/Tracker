@@ -23,5 +23,13 @@ export const projects: Project[] = [
         image: "/assets/ruhiflavours_thumbnail.png",
         link: "https://ruhiflavours.com",
         tags: ["E-commerce", "Food & Beverage", "Branding"],
+    },
+    {
+        id: "nexlytiq-technologies",
+        title: "NexlytiQ Technologies — Online IT & Data Engineering",
+        description: "An advanced online training institute platform offering specialized programs in Python, Data Engineering, SQL, Power BI, AWS, Azure, and Generative AI. We serve as their technical partners, delivering scalable web systems, student lead acquisition, and digital marketing.",
+        image: "/assets/nexlytiq.jpg",
+        link: "https://nexlytiqtechnologies.com",
+        tags: ["EdTech", "Data Engineering", "Technical Partner", "Digital Marketing"],
     }
 ];

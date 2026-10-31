@@ -6,8 +6,8 @@ import { Laptop, Megaphone } from "lucide-react";
 
 export default function OngoingProjects() {
   const ongoingStats = [
-    { value: 3, label: "Software Projects", icon: Laptop },
-    { value: 5, label: "Digital Marketing Projects", icon: Megaphone },
+    { value: 4, label: "Software Projects", icon: Laptop },
+    { value: 8, label: "Digital Marketing Projects", icon: Megaphone },
   ];
 
   return (

@@ -5,16 +5,16 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import CountUp from "@/components/CountUp";
 
 const stats = [
-  { value: 12, suffix: "+", label: "Projects Completed" },
-  { value: 17, suffix: "+", label: "Trusted Clients" },
+  { value: 20, suffix: "+", label: "Projects Completed" },
+  { value: 19, suffix: "+", label: "Trusted Clients" },
   { value: 100, suffix: "%", label: "Satisfaction Rate" },
-  { value: 5, suffix: "+", label: "Digital Marketing Projects" },
+  { value: 8, suffix: "+", label: "Digital Marketing Projects" },
 ];
 
 export default function AboutStats() {
   const headline = "Driving Innovation with Tailored Tech Solutions.";
   const subheadline =
-    "At VMK NEXGEN SOLUTIONS, we empower businesses with bespoke technology strategies. From cutting-edge software development to robust networking and scalable IoT implementations, our expertise delivers measurable impact and unlocks true potential.";
+    "At VMK EDGEMIND SOLUTIONS, we empower businesses with bespoke technology strategies. From cutting-edge software development and full-funnel digital marketing to robust networking and scalable IoT implementations, our expertise delivers measurable impact and unlocks true potential.";
 
   return (
     <section className="dark:bg-black bg-white">

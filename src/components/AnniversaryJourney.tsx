@@ -13,7 +13,8 @@ import {
   CheckCircle2,
   Rocket,
   ChevronRight,
-  ExternalLink
+  ExternalLink,
+  ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { clients, digitalClients, technicalClients } from "@/data/clients";
@@ -74,7 +75,11 @@ const timelinePhases = [
   },
 ];
 
-export default function AnniversaryJourney() {
+interface AnniversaryJourneyProps {
+  isStandalonePage?: boolean;
+}
+
+export default function AnniversaryJourney({ isStandalonePage = false }: AnniversaryJourneyProps) {
   const [activeCategory, setActiveCategory] = useState<"all" | "software" | "digital" | "partners">("all");
 
   const getDisplayClients = () => {
@@ -106,12 +111,25 @@ export default function AnniversaryJourney() {
   ];
 
   return (
-    <section id="anniversary" className="py-16 sm:py-24 bg-white dark:bg-black relative overflow-hidden">
+    <section id="anniversary" className={`${isStandalonePage ? "py-4 sm:py-8" : "py-16 sm:py-24"} bg-white dark:bg-black relative overflow-hidden`}>
       {/* Background decoration matching OurClients / CEOMessage */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-50 dark:bg-blue-900/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-50 dark:bg-purple-900/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Back to Home Button when rendered on dedicated page */}
+        {isStandalonePage && (
+          <div className="mb-8">
+            <Link 
+              href="/" 
+              className="inline-flex items-center text-sm font-medium text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors gap-2 group"
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <span>Back to Home</span>
+            </Link>
+          </div>
+        )}
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

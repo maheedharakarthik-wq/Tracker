@@ -55,7 +55,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#anniversary"
+                  href="/anniversary"
                   className="text-neutral-400 hover:text-white transition-colors"
                 >
                   Our 1-Year Journey

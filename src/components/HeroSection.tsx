@@ -84,7 +84,7 @@ export default function HeroSection() {
           className="mb-3"
         >
           <Link
-            href="#anniversary"
+            href="/anniversary"
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-zinc-900/80 hover:border-blue-500/40 dark:hover:border-blue-400/40 text-xs font-medium text-slate-700 dark:text-slate-300 shadow-sm transition-all backdrop-blur-md group"
           >
             <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />

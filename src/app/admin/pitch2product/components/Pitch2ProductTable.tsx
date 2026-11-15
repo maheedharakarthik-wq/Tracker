@@ -467,22 +467,26 @@ export function Pitch2ProductTable({
 
                     {/* Applicant */}
                     <TableCell>
-                      <div className="flex flex-col gap-1 max-w-[200px]">
+                      <div className="flex flex-col gap-1 min-w-[160px] max-w-[240px]">
                         <div className="flex items-center gap-2">
-                          <span className="font-semibold text-sm text-slate-800 dark:text-slate-200 truncate">
+                          <span className="font-semibold text-sm text-slate-800 dark:text-slate-200 truncate" title={sub.fullName}>
                             {sub.fullName}
                           </span>
                           {formatTypeBadge(sub.applicantType)}
                         </div>
                         <div className="flex items-center gap-2 text-xs text-slate-500">
                           <span className="truncate" title={sub.email}>
-                            {sub.email}
+                            {sub.email || "No email"}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-slate-400">
-                          <span>{sub.phone}</span>
-                          <span>•</span>
-                          <span>{sub.city}</span>
+                        <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+                          <span>{sub.phone || "No phone"}</span>
+                          {sub.city && (
+                            <>
+                              <span>•</span>
+                              <span>{sub.city}</span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </TableCell>

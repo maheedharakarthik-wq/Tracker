@@ -126,7 +126,7 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
           Elevator Pitch / Summary
         </h4>
-        <div className="p-4 rounded-xl bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-100/80 dark:border-indigo-900/40 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
+        <div className="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/50 text-sm leading-relaxed text-slate-800 dark:text-slate-200">
           {submission.ideaDescription || "No elevator pitch provided"}
         </div>
       </div>
@@ -136,33 +136,33 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Problem Statement
           </h4>
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-800 text-sm leading-relaxed text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
             {submission.problemStatement}
           </div>
         </div>
       )}
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {submission.targetCustomer && (
-          <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 space-y-1">
+          <div className="p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/40 space-y-1">
             <h5 className="text-xs font-semibold text-slate-500">Target Customer</h5>
             <p className="text-sm text-slate-800 dark:text-slate-200">{submission.targetCustomer}</p>
           </div>
         )}
         {submission.affectedUsers && (
-          <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 space-y-1">
+          <div className="p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/40 space-y-1">
             <h5 className="text-xs font-semibold text-slate-500">Affected Users</h5>
             <p className="text-sm text-slate-800 dark:text-slate-200">{submission.affectedUsers}</p>
           </div>
         )}
         {submission.currentSolution && (
-          <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 space-y-1">
+          <div className="p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/40 space-y-1">
             <h5 className="text-xs font-semibold text-slate-500">Current Alternative Solution</h5>
             <p className="text-sm text-slate-800 dark:text-slate-200">{submission.currentSolution}</p>
           </div>
         )}
         {submission.differentiator && (
-          <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30 space-y-1">
+          <div className="p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/40 space-y-1">
             <h5 className="text-xs font-semibold text-slate-500">Key Differentiator</h5>
             <p className="text-sm text-slate-800 dark:text-slate-200">{submission.differentiator}</p>
           </div>
@@ -198,52 +198,64 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
   // Section 2: Applicant Profile
   const renderApplicantSection = () => (
     <div className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
             <User className="h-3.5 w-3.5" /> Contact Details
           </h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Full Name</span>
-              <span className="font-semibold text-slate-800 dark:text-slate-200">{submission.fullName}</span>
+          <div className="space-y-2.5 text-sm">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-slate-500 shrink-0">Full Name</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200 text-right truncate">
+                {submission.fullName || "N/A"}
+              </span>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Email</span>
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-slate-700 dark:text-slate-300">{submission.email}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6 text-slate-400 hover:text-slate-700"
-                  onClick={() => copyToClipboard(submission.email, "Email")}
-                >
-                  <Copy className="h-3 w-3" />
-                </Button>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-slate-500 shrink-0">Email</span>
+              <div className="flex items-center gap-1.5 max-w-[70%] justify-end">
+                <span className="font-medium text-slate-700 dark:text-slate-300 truncate" title={submission.email}>
+                  {submission.email || "N/A"}
+                </span>
+                {submission.email && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 text-slate-400 hover:text-slate-700 shrink-0"
+                    onClick={() => copyToClipboard(submission.email, "Email")}
+                  >
+                    <Copy className="h-3 w-3" />
+                  </Button>
+                )}
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Phone</span>
-              <div className="flex items-center gap-1.5">
-                <span className="font-medium text-slate-700 dark:text-slate-300">{submission.phone}</span>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6 text-slate-400 hover:text-slate-700"
-                  onClick={() => copyToClipboard(submission.phone, "Phone")}
-                >
-                  <Copy className="h-3 w-3" />
-                </Button>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-slate-500 shrink-0">Phone</span>
+              <div className="flex items-center gap-1.5 max-w-[70%] justify-end">
+                <span className="font-medium text-slate-700 dark:text-slate-300 truncate">
+                  {submission.phone || "N/A"}
+                </span>
+                {submission.phone && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 text-slate-400 hover:text-slate-700 shrink-0"
+                    onClick={() => copyToClipboard(submission.phone, "Phone")}
+                  >
+                    <Copy className="h-3 w-3" />
+                  </Button>
+                )}
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">City / Location</span>
-              <span className="font-medium text-slate-700 dark:text-slate-300">{submission.city}</span>
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-slate-500 shrink-0">City / Location</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300 text-right">
+                {submission.city || "N/A"}
+              </span>
             </div>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
             {submission.applicantType === "STUDENT" ? (
               <GraduationCap className="h-3.5 w-3.5" />
@@ -252,41 +264,44 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
             )}
             Background & Organization
           </h4>
-          <div className="space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <span className="text-slate-500">Category</span>
+          <div className="space-y-2.5 text-sm">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-slate-500 shrink-0">Category</span>
               <Badge variant="outline">{formatLabel(submission.applicantType)}</Badge>
             </div>
-            {submission.applicantType === "STUDENT" && (
+            {submission.applicantType === "STUDENT" ? (
               <>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">College</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-300 text-right max-w-[200px] truncate">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-slate-500 shrink-0">College</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-300 text-right max-w-[200px] truncate" title={submission.collegeName}>
                     {submission.collegeName || "N/A"}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Course / Degree</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-300">{submission.course || "N/A"}</span>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-slate-500 shrink-0">Course / Degree</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-300 text-right">
+                    {submission.course || "N/A"}
+                  </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Year of Study</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-300">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-slate-500 shrink-0">Year of Study</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-300 text-right">
                     {formatLabel(submission.yearOfStudy)}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-500">Student Team Size</span>
-                  <span className="font-medium text-slate-700 dark:text-slate-300">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-slate-500 shrink-0">Student Team Size</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-300 text-right">
                     {submission.studentTeamSize || "1"}
                   </span>
                 </div>
               </>
-            )}
-            {submission.companyName && (
-              <div className="flex items-center justify-between">
-                <span className="text-slate-500">Company / Startup</span>
-                <span className="font-medium text-slate-700 dark:text-slate-300">{submission.companyName}</span>
+            ) : (
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-slate-500 shrink-0">Company / Startup</span>
+                <span className="font-medium text-slate-700 dark:text-slate-300 text-right">
+                  {submission.companyName || "N/A (Individual / Independent)"}
+                </span>
               </div>
             )}
           </div>
@@ -354,8 +369,8 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
   // Section 3: Stage & Traction
   const renderTractionSection = () => (
     <div className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Product Stage & Development
           </h4>
@@ -399,7 +414,7 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Market Traction & Metrics
           </h4>
@@ -459,8 +474,8 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <Clock className="h-3.5 w-3.5 text-indigo-500" /> Desired Timeline
           </div>
@@ -469,7 +484,7 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <DollarSign className="h-3.5 w-3.5 text-emerald-500" /> Budget Range
           </div>
@@ -478,7 +493,7 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
           </div>
         </div>
 
-        <div className="p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
+        <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/40 space-y-1">
           <div className="flex items-center gap-1.5 text-xs text-slate-500">
             <Share2 className="h-3.5 w-3.5 text-purple-500" /> Preferred Collaboration
           </div>
@@ -643,8 +658,8 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-5xl w-[96vw] max-h-[92vh] p-0 overflow-hidden flex flex-col bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-        <DialogHeader className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
+      <DialogContent className="sm:max-w-4xl md:max-w-5xl lg:max-w-6xl w-[95vw] max-h-[92vh] p-0 overflow-hidden flex flex-col bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xl">
+        <DialogHeader className="p-6 pb-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 shrink-0">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -714,37 +729,55 @@ ${submission.files?.map((f) => `- ${f.name} (${(f.size / (1024 * 1024)).toFixed(
           </div>
         </DialogHeader>
 
-        <Tabs defaultValue="all" className="flex-1 flex flex-col overflow-hidden">
-          <div className="px-6 py-2 border-b border-slate-100 dark:border-slate-800 overflow-x-auto scrollbar-none bg-slate-50/30 dark:bg-slate-900/30">
-            <TabsList className="bg-slate-100 dark:bg-slate-800/80 p-1 flex w-max gap-1">
-              <TabsTrigger value="all" className="gap-1.5 text-xs font-semibold data-[state=active]:bg-indigo-600 data-[state=active]:text-white">
+        <Tabs defaultValue="all" className="flex-1 flex flex-col overflow-hidden min-h-0">
+          <div className="shrink-0 px-6 py-2.5 border-b border-slate-200 dark:border-slate-800 overflow-x-auto scrollbar-none bg-slate-50/50 dark:bg-slate-900/50">
+            <TabsList className="bg-slate-100 dark:bg-slate-800/80 p-1 flex w-max gap-1 shrink-0 h-auto min-h-[38px]">
+              <TabsTrigger
+                value="all"
+                className="gap-1.5 text-xs font-semibold px-3 py-1.5 data-[state=active]:bg-indigo-600 data-[state=active]:text-white shadow-none"
+              >
                 <ListFilter className="h-3.5 w-3.5" />
                 All Data (Full View)
               </TabsTrigger>
-              <TabsTrigger value="applicant" className="gap-1.5 text-xs">
+              <TabsTrigger
+                value="applicant"
+                className="gap-1.5 text-xs px-3 py-1.5 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white"
+              >
                 <User className="h-3.5 w-3.5" />
                 Applicant Profile
               </TabsTrigger>
-              <TabsTrigger value="idea" className="gap-1.5 text-xs">
+              <TabsTrigger
+                value="idea"
+                className="gap-1.5 text-xs px-3 py-1.5 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white"
+              >
                 <Sparkles className="h-3.5 w-3.5" />
                 Idea & Vision
               </TabsTrigger>
-              <TabsTrigger value="traction" className="gap-1.5 text-xs">
+              <TabsTrigger
+                value="traction"
+                className="gap-1.5 text-xs px-3 py-1.5 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white"
+              >
                 <TrendingUp className="h-3.5 w-3.5" />
                 Stage & Traction
               </TabsTrigger>
-              <TabsTrigger value="needs" className="gap-1.5 text-xs">
+              <TabsTrigger
+                value="needs"
+                className="gap-1.5 text-xs px-3 py-1.5 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white"
+              >
                 <Layers className="h-3.5 w-3.5" />
                 Needs & Budget
               </TabsTrigger>
-              <TabsTrigger value="files" className="gap-1.5 text-xs">
+              <TabsTrigger
+                value="files"
+                className="gap-1.5 text-xs px-3 py-1.5 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-slate-900 dark:data-[state=active]:text-white"
+              >
                 <FileText className="h-3.5 w-3.5" />
                 Files & Links ({submission.files?.length || 0})
               </TabsTrigger>
             </TabsList>
           </div>
 
-          <ScrollArea className="flex-1 p-6">
+          <ScrollArea className="flex-1 min-h-0 p-6">
             {/* Tab 0: All Details (Full View) */}
             <TabsContent value="all" className="m-0 space-y-8 pb-6">
               {/* Applicant & Contact */}

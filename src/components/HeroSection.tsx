@@ -81,15 +81,17 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-2"
+          className="mb-3"
         >
           <Link
             href="#anniversary"
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 via-purple-500/15 to-blue-500/15 border border-amber-500/30 hover:border-amber-500/60 transition-all text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 shadow-sm group backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-zinc-900/80 hover:border-blue-500/40 dark:hover:border-blue-400/40 text-xs font-medium text-slate-700 dark:text-slate-300 shadow-sm transition-all backdrop-blur-md group"
           >
-            <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
-            <span>🎉 Celebrating 1 Year of Innovation • Inception Nov 13</span>
-            <span className="text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-0.5 transition-transform">→</span>
+            <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="font-semibold text-slate-900 dark:text-white">1st Year Anniversary</span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
+            <span className="text-slate-500 dark:text-slate-400">Our Journey &amp; Projects</span>
+            <span className="text-blue-600 dark:text-blue-400 font-semibold group-hover:translate-x-0.5 transition-transform">→</span>
           </Link>
         </motion.div>
 

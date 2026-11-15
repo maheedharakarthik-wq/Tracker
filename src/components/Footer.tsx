@@ -56,10 +56,9 @@ export default function Footer() {
               <li>
                 <Link
                   href="/#anniversary"
-                  className="text-amber-400/90 hover:text-amber-300 font-medium transition-colors flex items-center gap-1.5"
+                  className="text-neutral-400 hover:text-white transition-colors"
                 >
-                  <span>1st Year Anniversary</span>
-                  <span className="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-bold">Nov 13</span>
+                  Our 1-Year Journey
                 </Link>
               </li>
               <li>

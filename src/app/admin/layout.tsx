@@ -3,16 +3,15 @@ import {
   LayoutDashboard,
   BookOpen,
   Users,
-  Library,
   LogOut,
   CreditCard,
   TicketPercent,
   Rocket,
+  Globe,
+  Briefcase,
+  ShieldCheck
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -26,67 +25,91 @@ export default async function AdminLayout({
     headers: await headers(),
   });
 
-  if (session?.user.role !== "admin") {
+  const role = session?.user.role;
+
+  // Allow both admin and hr access to admin area
+  if (role !== "admin" && role !== "hr") {
     redirect("/");
   }
-  const links = [
-    {
-      label: "Dashboard",
-      href: "/admin",
-      icon: (
-        <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Pitch2Product",
-      href: "/admin/pitch2product",
-      icon: (
-        <Rocket className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Users",
-      href: "/admin/users",
-      icon: (
-        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Internships",
-      href: "/admin/internships",
-      icon: (
-        <BookOpen className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Courses",
-      href: "/admin/courses",
-      icon: (
-        <BookOpen className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Coupons",
-      href: "/admin/coupons",
-      icon: (
-        <TicketPercent className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Enrollments",
-      href: "/admin/enrollments",
-      icon: (
-        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Payments",
-      href: "/admin/payments",
-      icon: (
-        <CreditCard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-  ];
+
+  const isHr = role === "hr";
+
+  // Build links dynamically based on role
+  const links = isHr
+    ? [
+        {
+          label: "Dashboard",
+          href: "/admin",
+          icon: <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Careers & Jobs",
+          href: "/admin/careers",
+          icon: <Briefcase className="text-rose-600 dark:text-rose-400 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Internships",
+          href: "/admin/internships",
+          icon: <BookOpen className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Users & Team",
+          href: "/admin/users",
+          icon: <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+      ]
+    : [
+        {
+          label: "Dashboard",
+          href: "/admin",
+          icon: <LayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "CMS Landing",
+          href: "/admin/cms",
+          icon: <Globe className="text-indigo-600 dark:text-indigo-400 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Careers & Jobs",
+          href: "/admin/careers",
+          icon: <Briefcase className="text-rose-600 dark:text-rose-400 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Pitch2Product",
+          href: "/admin/pitch2product",
+          icon: <Rocket className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Users & Roles",
+          href: "/admin/users",
+          icon: <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Internships",
+          href: "/admin/internships",
+          icon: <BookOpen className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Courses",
+          href: "/admin/courses",
+          icon: <BookOpen className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Coupons",
+          href: "/admin/coupons",
+          icon: <TicketPercent className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Enrollments",
+          href: "/admin/enrollments",
+          icon: <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+        {
+          label: "Payments",
+          href: "/admin/payments",
+          icon: <CreditCard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+        },
+      ];
 
   return (
     <div className="flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-900 w-full flex-1 mx-auto border-neutral-200 dark:border-neutral-700 overflow-hidden h-screen">
@@ -97,9 +120,14 @@ export default async function AdminLayout({
               <div className="h-8 w-8 rounded bg-blue-600 flex items-center justify-center text-white font-bold shrink-0">
                 A
               </div>
-              <span className="font-semibold text-neutral-800 dark:text-neutral-200 text-sm">
-                Admin Portal
-              </span>
+              <div className="flex flex-col min-w-0">
+                <span className="font-semibold text-neutral-800 dark:text-neutral-200 text-sm truncate">
+                  Admin Portal
+                </span>
+                <span className="text-[10px] text-neutral-400 capitalize">
+                  {role === "hr" ? "HR Portal" : "Executive Admin"}
+                </span>
+              </div>
             </Link>
             <div className="flex flex-col gap-2">
               {links.map((link, idx) => (

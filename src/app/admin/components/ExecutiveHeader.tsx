@@ -13,7 +13,9 @@ import {
   Activity, 
   Database,
   Clock,
-  Sparkles
+  Sparkles,
+  Globe,
+  Briefcase
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -124,8 +126,22 @@ export function ExecutiveHeader({ dbLatencyMs, onRefresh, isRefreshing }: Execut
           Quick Launch:
         </span>
         <Button asChild size="sm" className="h-8 bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs rounded-lg">
+          <Link href="/admin/cms">
+            <Globe className="w-3.5 h-3.5 mr-1.5" />
+            CMS Landing
+          </Link>
+        </Button>
+
+        <Button asChild size="sm" className="h-8 bg-rose-600 hover:bg-rose-700 text-white shadow-xs rounded-lg">
+          <Link href="/admin/careers">
+            <Briefcase className="w-3.5 h-3.5 mr-1.5" />
+            Careers & Jobs
+          </Link>
+        </Button>
+
+        <Button asChild variant="outline" size="sm" className="h-8 rounded-lg border-slate-200 dark:border-slate-700">
           <Link href="/admin/courses/new">
-            <PlusCircle className="w-3.5 h-3.5 mr-1.5" />
+            <PlusCircle className="w-3.5 h-3.5 mr-1.5 text-blue-600" />
             New Course
           </Link>
         </Button>

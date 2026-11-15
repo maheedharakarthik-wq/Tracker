@@ -1,7 +1,7 @@
-import { pgTable, serial, text, timestamp, integer, boolean, pgEnum, index } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp, integer, boolean, pgEnum, index, jsonb } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
-export const roleEnum = pgEnum("role", ["user", "intern", "admin"]);
+export const roleEnum = pgEnum("role", ["user", "intern", "admin", "hr", "employee"]);
 export const planEnum = pgEnum("plan", ["1_month", "3_months", "6_months"]);
 export const contentTypeEnum = pgEnum("content_type", ["text", "video", "test"]);
 
@@ -283,3 +283,115 @@ export const paymentsRelations = relations(payments, ({ one }) => ({
     references: [courses.id],
   }),
 }));
+
+// ==========================================
+// CMS & HOMEPAGE LANDING SCHEMAS
+// ==========================================
+
+export const cmsProjects = pgTable("cms_projects", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  description: text("description").notNull(),
+  category: text("category").default("Web Development").notNull(),
+  imageUrl: text("image_url").notNull(),
+  liveUrl: text("live_url"),
+  githubUrl: text("github_url"),
+  clientName: text("client_name"),
+  tags: text("tags").array().default([]).notNull(),
+  isFeatured: boolean("is_featured").default(true).notNull(),
+  isPublished: boolean("is_published").default(true).notNull(),
+  displayOrder: integer("display_order").default(0).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => ({
+  slugIdx: index("cms_projects_slug_idx").on(table.slug),
+  featuredIdx: index("cms_projects_featured_idx").on(table.isFeatured),
+  orderIdx: index("cms_projects_order_idx").on(table.displayOrder),
+}));
+
+export const cmsPartners = pgTable("cms_partners", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  category: text("category").default("technical_partner").notNull(), // 'technical_partner' | 'client' | 'digital_client'
+  logoUrl: text("logo_url").notNull(),
+  websiteUrl: text("website_url"),
+  industry: text("industry"),
+  description: text("description"),
+  isActive: boolean("is_active").default(true).notNull(),
+  displayOrder: integer("display_order").default(0).notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => ({
+  categoryIdx: index("cms_partners_category_idx").on(table.category),
+  activeIdx: index("cms_partners_active_idx").on(table.isActive),
+}));
+
+export const cmsSections = pgTable("cms_sections", {
+  id: serial("id").primaryKey(),
+  sectionKey: text("section_key").notNull().unique(),
+  title: text("title"),
+  subtitle: text("subtitle"),
+  badgeText: text("badge_text"),
+  contentJson: jsonb("content_json").default({}).notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
+// ==========================================
+// CAREERS & HR JOB POSTING SCHEMAS
+// ==========================================
+
+export const jobPostings = pgTable("job_postings", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  department: text("department").notNull(), // 'Engineering', 'Human Resources', 'Data & AI', 'Design', 'Marketing', etc.
+  location: text("location").notNull(), // 'Remote', 'Vijayawada / Hybrid', etc.
+  type: text("type").notNull(), // 'Full-Time', 'Part-Time', 'Internship', 'Contract'
+  experience: text("experience"), // 'Fresher', '1-3 Years', etc.
+  salary: text("salary"), // '₹4.5 - ₹8.0 LPA'
+  description: text("description").notNull(),
+  requirements: text("requirements"),
+  responsibilities: text("responsibilities"),
+  isActive: boolean("is_active").default(true).notNull(),
+  postedBy: text("posted_by").references(() => users.id),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => ({
+  slugIdx: index("job_postings_slug_idx").on(table.slug),
+  activeIdx: index("job_postings_active_idx").on(table.isActive),
+  deptIdx: index("job_postings_dept_idx").on(table.department),
+}));
+
+export const jobApplications = pgTable("job_applications", {
+  id: serial("id").primaryKey(),
+  jobId: integer("job_id").references(() => jobPostings.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  resumeUrl: text("resume_url").notNull(),
+  portfolioUrl: text("portfolio_url"),
+  coverNote: text("cover_note"),
+  status: text("status").default("pending").notNull(), // 'pending', 'reviewing', 'shortlisted', 'interviewed', 'hired', 'rejected'
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => ({
+  jobIdx: index("job_applications_job_idx").on(table.jobId),
+  statusIdx: index("job_applications_status_idx").on(table.status),
+}));
+
+export const jobPostingsRelations = relations(jobPostings, ({ many, one }) => ({
+  applications: many(jobApplications),
+  author: one(users, {
+    fields: [jobPostings.postedBy],
+    references: [users.id],
+  }),
+}));
+
+export const jobApplicationsRelations = relations(jobApplications, ({ one }) => ({
+  job: one(jobPostings, {
+    fields: [jobApplications.jobId],
+    references: [jobPostings.id],
+  }),
+}));
+

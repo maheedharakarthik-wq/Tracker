@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
@@ -15,10 +15,37 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/data/projects";
+import { projects as defaultProjects, Project } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 
 export default function Projects() {
+  const [projectList, setProjectList] = useState<Project[]>(defaultProjects);
+
+  useEffect(() => {
+    async function loadCmsProjects() {
+      try {
+        const res = await fetch("/api/cms");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.projects) && data.projects.length > 0) {
+            const mapped: Project[] = data.projects.map((p: any) => ({
+              id: p.slug || String(p.id),
+              title: p.title,
+              description: p.description,
+              image: p.imageUrl,
+              link: p.liveUrl || "#",
+              tags: Array.isArray(p.tags) && p.tags.length > 0 ? p.tags : [p.category || "Development"],
+            }));
+            setProjectList(mapped);
+          }
+        }
+      } catch (e) {
+        // Fall back gracefully to static seed data
+      }
+    }
+    loadCmsProjects();
+  }, []);
+
   return (
     <section id="projects" className="py-24 sm:py-32 bg-slate-50 dark:bg-black/40 overflow-hidden relative">
       {/* Dynamic Background Elements */}
@@ -55,7 +82,7 @@ export default function Projects() {
           className="w-full max-w-6xl mx-auto"
         >
           <CarouselContent className="-ml-4">
-            {projects.map((project, index) => (
+            {projectList.map((project, index) => (
               <CarouselItem key={project.id} className="pl-4 basis-full">
                 <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -66,7 +93,7 @@ export default function Projects() {
                   <Card className="h-full border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 bg-white dark:bg-zinc-900/50 backdrop-blur-md overflow-hidden group flex flex-col lg:flex-row p-4 gap-6 rounded-3xl">
                     {/* Image Section - Left Side */}
                     <div className="relative w-full lg:w-[45%] aspect-square overflow-hidden rounded-2xl shrink-0 bg-slate-50 dark:bg-zinc-800/40 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-slate-200 dark:bg-zinc-800 animate-pulse" /> {/* Skeleton placeholder */}
+                        <div className="absolute inset-0 bg-slate-200 dark:bg-zinc-800 animate-pulse" />
                         <Image
                           src={project.image}
                           alt={project.title}
@@ -74,10 +101,8 @@ export default function Projects() {
                           className={`${project.image.includes('thumbnail') ? 'object-cover' : 'object-contain p-8 md:p-12'} transition-transform duration-700 group-hover:scale-105`}
                           priority={index === 0}
                         />
-                        {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
                         
-                        {/* Mobile Tag Overlay */}
                         <div className="absolute top-3 right-3 lg:hidden flex flex-wrap gap-2 justify-end">
                             {project.tags.slice(0, 2).map(tag => (
                                 <Badge key={tag} variant="secondary" className="bg-white/90 dark:bg-black/90 text-xs backdrop-blur-md shadow-sm">
@@ -88,48 +113,43 @@ export default function Projects() {
                     </div>
 
                     {/* Content Section - Right Side */}
-                    <div className="flex flex-col w-full lg:w-[55%] relative justify-center">
-                      <div className="absolute -top-2 -right-2 p-2 opacity-5">
-                         <Github className="w-20 h-20 rotate-12" />
-                      </div>
+                    <div className="flex flex-col justify-between w-full lg:w-[55%] py-2 lg:py-4">
+                        <div>
+                            <div className="hidden lg:flex flex-wrap gap-2 mb-4">
+                                {project.tags.map(tag => (
+                                    <Badge key={tag} variant="secondary" className="bg-slate-100 dark:bg-white/10 hover:bg-slate-200 text-xs text-slate-700 dark:text-slate-300">
+                                        {tag}
+                                    </Badge>
+                                ))}
+                            </div>
 
-                      <div className="flex-grow flex flex-col justify-center">
-                        <div className="hidden lg:flex flex-wrap gap-2 mb-4">
-                            {project.tags.map(tag => (
-                                <Badge key={tag} variant="outline" className="px-2 py-0.5 border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/10 text-xs">
-                                    {tag}
-                                </Badge>
-                            ))}
+                            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                {project.title}
+                            </h3>
+
+                            <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6 font-normal">
+                                {project.description}
+                            </p>
                         </div>
-                        
-                        <h3 className="text-2xl sm:text-3xl font-bold mb-3 text-slate-900 dark:text-white leading-tight">
-                          {project.title}
-                        </h3>
-                        
-                        <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
-                          {project.description}
-                        </p>
-                      </div>
 
-                      <div className="mt-auto">
-                        <Button asChild size="lg" className="w-full sm:w-auto bg-slate-900 dark:bg-white text-white dark:text-black hover:bg-slate-800 dark:hover:bg-slate-200 transition-all shadow-md rounded-xl group/btn h-11 px-6">
-                            <Link href={project.link} className="flex items-center justify-center gap-2">
-                            Visit Project
-                            <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
-                            </Link>
-                        </Button>
-                      </div>
+                        <div className="flex items-center gap-4 pt-4 border-t border-slate-100 dark:border-white/5">
+                            {project.link && project.link !== "#" && (
+                              <Button asChild className="rounded-full shadow-md bg-blue-600 hover:bg-blue-700 text-white">
+                                  <a href={project.link} target="_blank" rel="noopener noreferrer">
+                                      Visit Live <ExternalLink className="ml-2 w-4 h-4" />
+                                  </a>
+                              </Button>
+                            )}
+                        </div>
                     </div>
                   </Card>
                 </motion.div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          
-          {/* Custom Navigation */}
-          <div className="hidden md:flex justify-center gap-4 mt-12 w-full">
-             <CarouselPrevious className="static translate-y-0 translate-x-0 h-12 w-12 border-2 border-slate-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all" />
-             <CarouselNext className="static translate-y-0 translate-x-0 h-12 w-12 border-2 border-slate-200 dark:border-zinc-800 hover:bg-white dark:hover:bg-zinc-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all" />
+          <div className="flex justify-end gap-2 mt-8 pr-4">
+             <CarouselPrevious className="static translate-y-0 translate-x-0 border-slate-200 dark:border-white/10" />
+             <CarouselNext className="static translate-y-0 translate-x-0 border-slate-200 dark:border-white/10" />
           </div>
         </Carousel>
       </div>

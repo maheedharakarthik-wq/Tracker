@@ -41,3 +41,34 @@ export async function DELETE(
     return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  try {
+    const { userId } = await params;
+    const body = await req.json();
+    const { role } = body;
+
+    const validRoles = ["user", "intern", "admin", "hr", "employee"];
+    if (!validRoles.includes(role)) {
+      return NextResponse.json({ error: "Invalid role specified" }, { status: 400 });
+    }
+
+    const [updated] = await db
+      .update(users)
+      .set({ role, updatedAt: new Date() })
+      .where(eq(users.id, userId))
+      .returning();
+
+    if (!updated) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, user: updated });
+  } catch (error) {
+    console.error("Error updating user role:", error);
+    return NextResponse.json({ error: "Failed to update user role" }, { status: 500 });
+  }
+}

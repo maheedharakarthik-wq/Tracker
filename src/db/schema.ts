@@ -29,6 +29,22 @@ export const sessions = pgTable("sessions", {
   userId: text("user_id").notNull().references(() => users.id),
 });
 
+export const websiteVisits = pgTable("website_visits", {
+  id: serial("id").primaryKey(),
+  path: text("path").notNull(),
+  visitorId: text("visitor_id").notNull(),
+  referrer: text("referrer"),
+  device: text("device").default("desktop"),
+  browser: text("browser"),
+  userAgent: text("user_agent"),
+  ipAddress: text("ip_address"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => ({
+  pathIdx: index("website_visits_path_idx").on(table.path),
+  createdAtIdx: index("website_visits_created_at_idx").on(table.createdAt),
+  visitorIdx: index("website_visits_visitor_idx").on(table.visitorId),
+}));
+
 export const accounts = pgTable("accounts", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),

@@ -77,6 +77,22 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="container relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center px-4 sm:px-6">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-2"
+        >
+          <Link
+            href="#anniversary"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 via-purple-500/15 to-blue-500/15 border border-amber-500/30 hover:border-amber-500/60 transition-all text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 shadow-sm group backdrop-blur-md"
+          >
+            <span className="flex h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+            <span>🎉 Celebrating 1 Year of Innovation • Inception Nov 13</span>
+            <span className="text-amber-600 dark:text-amber-400 font-bold group-hover:translate-x-0.5 transition-transform">→</span>
+          </Link>
+        </motion.div>
+
         <TypewriterEffectSmooth words={words} />
 
         <motion.div

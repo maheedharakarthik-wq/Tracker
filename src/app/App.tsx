@@ -3,6 +3,7 @@
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import AboutStats from "../components/AboutStats";
+import AnniversaryJourney from "../components/AnniversaryJourney";
 import OngoingProjects from "../components/OngoingProjects";
 import PartnerSection from "../components/PartnerSection";
 import CEOMessage from "../components/CEOMessage";
@@ -32,6 +33,7 @@ const LandingPage = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
 
         <AboutStats />
+        <AnniversaryJourney />
         <OngoingProjects />
         <PartnerSection />
         <CEOMessage />

@@ -65,17 +65,17 @@ export default function Projects() {
                 >
                   <Card className="h-full border border-slate-200 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 bg-white dark:bg-zinc-900/50 backdrop-blur-md overflow-hidden group flex flex-col lg:flex-row p-4 gap-6 rounded-3xl">
                     {/* Image Section - Left Side */}
-                    <div className="relative w-full lg:w-[45%] aspect-square overflow-hidden rounded-2xl shrink-0">
+                    <div className="relative w-full lg:w-[45%] aspect-square overflow-hidden rounded-2xl shrink-0 bg-slate-50 dark:bg-zinc-800/40 flex items-center justify-center">
                         <div className="absolute inset-0 bg-slate-200 dark:bg-zinc-800 animate-pulse" /> {/* Skeleton placeholder */}
                         <Image
                           src={project.image}
                           alt={project.title}
                           fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          className={`${project.image.includes('thumbnail') ? 'object-cover' : 'object-contain p-8 md:p-12'} transition-transform duration-700 group-hover:scale-105`}
                           priority={index === 0}
                         />
                         {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
+                        <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300 pointer-events-none" />
                         
                         {/* Mobile Tag Overlay */}
                         <div className="absolute top-3 right-3 lg:hidden flex flex-wrap gap-2 justify-end">

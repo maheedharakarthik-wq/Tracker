@@ -96,7 +96,8 @@ export const clients: Client[] = [
             "Responsive UI/UX Design",
             "Content Management System (CMS)",
             "SEO Optimization"
-        ]
+        ],
+        websiteUrl: "https://magvindevelopers.com/"
     },
     {
         id: "ask-associates",
@@ -112,7 +113,8 @@ export const clients: Client[] = [
             "Client Inquiry Management",
             "Responsive Web Development",
             "SEO Optimization"
-        ]
+        ],
+        websiteUrl: "https://askassociates45.com"
     },
     {
         id: "quick-property-services",

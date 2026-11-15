@@ -31,5 +31,21 @@ export const projects: Project[] = [
         image: "/assets/nexlytiq.jpg",
         link: "https://nexlytiqtechnologies.com",
         tags: ["EdTech", "Data Engineering", "Technical Partner", "Digital Marketing"],
+    },
+    {
+        id: "magvin-developers",
+        title: "Magvin Developers — Real Estate & Property Development",
+        description: "A premium real estate platform developed for Magvin Developers to showcase luxury residential and commercial properties with immersive project showcases, lead generation, and inquiry management.",
+        image: "/assets/magvin.png",
+        link: "https://magvindevelopers.com/",
+        tags: ["Real Estate", "Web Platform", "Lead Generation"],
+    },
+    {
+        id: "ask-associates",
+        title: "Ask Associates — Civil Engineering & Construction Consulting",
+        description: "A professional corporate website developed for Ask Associates showcasing civil engineering expertise, construction consulting services, project portfolio, and business capabilities.",
+        image: "/assets/ask.png",
+        link: "https://askassociates45.com",
+        tags: ["Civil Engineering", "Construction", "Corporate Website"],
     }
 ];

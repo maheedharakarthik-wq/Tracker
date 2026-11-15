@@ -10,6 +10,20 @@ import { getStorage } from "firebase-admin/storage";
 // reloads don't re-initialize the app (and throw "app already exists") on every edit.
 const globalForFirebaseAdmin = global as unknown as { firebaseAdminApp: App | undefined };
 
+function formatPrivateKey(key: string | undefined): string | undefined {
+  if (!key) return undefined;
+  let formatted = key.trim();
+  // Strip surrounding quotes if user copied them into dashboard/env
+  if (
+    (formatted.startsWith('"') && formatted.endsWith('"')) ||
+    (formatted.startsWith("'") && formatted.endsWith("'"))
+  ) {
+    formatted = formatted.slice(1, -1).trim();
+  }
+  // Handle literal newlines, escaped \n, and double-escaped \\n
+  return formatted.replace(/\\n/g, "\n");
+}
+
 function getAdminApp(): App {
   if (globalForFirebaseAdmin.firebaseAdminApp) return globalForFirebaseAdmin.firebaseAdminApp;
   if (getApps().length) return getApps()[0];
@@ -17,8 +31,8 @@ function getAdminApp(): App {
   const projectId = process.env.FIREBASE_PROJECT_ID;
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
   // Service-account private keys are stored in .env with literal "\n" sequences
-  // (real newlines break most .env parsers), so they need to be unescaped here.
-  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n");
+  // or surrounding quotes, so we clean and format them here.
+  const privateKey = formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY);
 
   if (!projectId || !clientEmail || !privateKey) {
     throw new Error(

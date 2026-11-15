@@ -64,7 +64,7 @@ export default async function ClientPage({ params }: PageProps) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center mt-3 text-blue-600 hover:text-blue-800 font-medium transition-colors"
                   >
-                    Visit Website
+                    {client.websiteUrl.includes("play.google.com") ? "View on Google Play" : "Visit Website"}
                     <ExternalLink className="w-4 h-4 ml-1.5" />
                   </a>
                 )}

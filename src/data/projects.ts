@@ -47,5 +47,13 @@ export const projects: Project[] = [
         image: "/assets/ask.png",
         link: "https://askassociates45.com",
         tags: ["Civil Engineering", "Construction", "Corporate Website"],
+    },
+    {
+        id: "folk-gokula-kshetram",
+        title: "Folk Gokula Kshetram — Temple ERP & Devotee App",
+        description: "A comprehensive digital platform and Android application developed for Folk Gokula Kshetram to streamline temple administration, festival management, pilgrimage booking, and devotee services.",
+        image: "/assets/logo.png",
+        link: "https://play.google.com/store/apps/details?id=com.vmkedgemind.folk_gokula_kshetram&pcampaignid=web_share",
+        tags: ["Mobile App", "Temple ERP", "Play Store"],
     }
 ];

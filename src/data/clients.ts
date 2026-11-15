@@ -64,7 +64,8 @@ export const clients: Client[] = [
             "Appointment Scheduling System",
             "Admin Dashboard & Analytics",
             "Mobile Application for Devotees"
-        ]
+        ],
+        websiteUrl: "https://play.google.com/store/apps/details?id=com.vmkedgemind.folk_gokula_kshetram&pcampaignid=web_share"
     },
     {
         id: "count-harinams",

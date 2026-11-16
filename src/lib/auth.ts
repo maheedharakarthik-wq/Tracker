@@ -53,5 +53,10 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
+  trustedOrigins: [
+    "https://vmkedgemindsolutions.com",
+    "https://www.vmkedgemindsolutions.com",
+    "http://localhost:3000",
+  ],
   plugins: [nextCookies()], 
 });

@@ -3,6 +3,7 @@
 import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { getAuth, type Auth } from "firebase/auth";
 import { getStorage, type FirebaseStorage } from "firebase/storage";
+import { getFirestore, type Firestore } from "firebase/firestore";
 
 // Public config — safe to expose in the browser bundle (standard Firebase practice).
 // Real values come from NEXT_PUBLIC_* env vars with live production defaults.
@@ -25,3 +26,4 @@ function getClientApp(): FirebaseApp {
 export const app = getClientApp();
 export const auth: Auth = getAuth(app);
 export const storage: FirebaseStorage = getStorage(app);
+export const firestore: Firestore = getFirestore(app);

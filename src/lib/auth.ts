@@ -9,7 +9,24 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy_for_dev");
 
+const getBaseURL = () => {
+  let url = process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_APP_URL;
+  if (!url) {
+    if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+      url = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+    } else {
+      url = "https://www.vmkedgemindsolutions.com";
+    }
+  }
+  // Automatically enforce www.vmkedgemindsolutions.com since apex domain has no DNS record
+  if (url.includes("vmkedgemindsolutions.com") && !url.includes("www.vmkedgemindsolutions.com")) {
+    url = url.replace("vmkedgemindsolutions.com", "www.vmkedgemindsolutions.com");
+  }
+  return url;
+};
+
 export const auth = betterAuth({
+  baseURL: getBaseURL(),
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: {
